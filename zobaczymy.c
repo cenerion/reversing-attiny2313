@@ -35,7 +35,6 @@ int main(void){
   52:	b0 e0       	ldi	r27, 0x00	; 0			r27 <- 0b00000000
   */
   uint8_t r20 = 0;	//0x00
-  uint8_t r21 = 255;//0xFF
   uint8_t r22 = 200;//0xC8
   uint8_t r23 = 0;	//0x00
   uint8_t r26 = 1;	//0x01
@@ -47,10 +46,14 @@ int main(void){
   goto PIERWSZY;
   
   
-
+  /*
   56:	52 bb       	out	0x12, r21	; 18		PORTD <- r21
-  58:	cd 01       	movw	r24, r26			r25:r24 <- r27:r26
-  5a:	04 2e       	mov	r0, r20					r0 <- r20
+  */
+  PORTD = 0xFF;
+  
+  
+  58:	cd 01       	movw	r24, r26			r25:r24 <- r27:r26 //00:01 (??)
+  5a:	04 2e       	mov	r0, r20					r0 <- r20//0
   
   /*
   5c:	02 c0       	rjmp	.+4      	;  0x62	jump to 0x62
@@ -62,18 +65,28 @@ int main(void){
 #DRUGI
 
 
-  62:	0a 94       	dec	r0						r0 <- r0 - 0b00000001
+  62:	0a 94       	dec	r0						r0 <- r0 - 0b00000001 // 0 - 1 (??)
   64:	e2 f7       	brpl	.-8      	;  0x5e	if(N=0){jump to 0x5e}
   
   
   66:	88 bb       	out	0x18, r24	; 24		PORTB <- r24
   68:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
   6a:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
+  
+  
   6c:	fb 01       	movw	r30, r22			r31:r30 <- r23:r22
+  
+  /*
   6e:	31 97       	sbiw	r30, 0x01	; 1		r31:r30 <- r31:r30 - 0b00000001
   70:	f1 f7       	brne	.-4      	;  0x6e	if(Z=0){jump to 0x6e}
-  72:	01 97       	sbiw	r24, 0x01	; 1		r25:r24 <- r25:r24 - 0b00000001
+  */
+  for(i = 200 ; ) // delay
+  
+  
+  72:	01 97       	sbiw	r24, 0x01	; 1		r25:r24 <- r25:r24 - 0b00000001//0b0001001110001000 = 5000--
   74:	d9 f7       	brne	.-10     	;  0x6c	if(Z=0){jump to 0x6c}
+  
+  
   76:	44 30       	cpi	r20, 0x04	; 4			compare r20 and 0b00000100
   78:	b8 f4       	brcc	.+46     	;  0xa8	if(C=0){jump to 0xa8}
   7a:	20 e0       	ldi	r18, 0x00	; 0			r18 <- 0b00000000
@@ -88,6 +101,8 @@ int main(void){
   86:	99 1f       	adc	r25, r25				r25 <- r25 + r25 + C(???)
   88:	0a 94       	dec	r0						r0 <- r0 - 0b00000001
   8a:	e2 f7       	brpl	.-8      	;  0x84	if(N=0){jump to 0x84}
+  
+  
   8c:	80 95       	com	r24						r24 <- 0b11111111 - r24
   8e:	82 bb       	out	0x12, r24	; 18		PORTD <- r24
   90:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
@@ -95,13 +110,17 @@ int main(void){
   94:	fb 01       	movw	r30, r22			r31:r30 <- r23:r22
   96:	31 97       	sbiw	r30, 0x01	; 1		r31:r30 <- r31:r30 - 0b00000001
   98:	f1 f7       	brne	.-4      	;  0x96	if(Z=0){jump to 0x96}
+  
   9a:	01 97       	sbiw	r24, 0x01	; 1		r25:r24 <- r25:r24 - 0b00000001
   9c:	d9 f7       	brne	.-10     	;  0x94	if(Z=0){jump to 0x94}
+  
+  
   9e:	2f 5f       	subi	r18, 0xFF	; 255	r18 <- r18 - 0b11111111
   a0:	3f 4f       	sbci	r19, 0xFF	; 255	r19 <- r19 - 0b11111111
   a2:	27 30       	cpi	r18, 0x07	; 7			compare r18 and 0b00000111
   a4:	31 05       	cpc	r19, r1					compare with carry r19 and r1 (???)
   a6:	59 f7       	brne	.-42     	;  0x7e	if(Z=0){jump to 0x7e}
+  
   a8:	4f 5f       	subi	r20, 0xFF	; 255	r20 <- r20 - 0b11111111
   
 #PIERWSZY
