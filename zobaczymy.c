@@ -35,8 +35,10 @@ int main(void){
   52:	b0 e0       	ldi	r27, 0x00	; 0			r27 <- 0b00000000
   */
   uint8_t r20 = 0;	//0x00
+  /*
   uint8_t r22 = 200;//0xC8
-  uint8_t r23 = 0;	//0x00
+  uint8_t r23 = 0;	//0x00*/
+  uint16_t time = 0b0000000011001000;//0b1100100000000000(??)
   uint8_t r26 = 1;	//0x01
   uint8_t r27 = 0;	//0x00
   
@@ -143,9 +145,14 @@ int main(void){
   
   b6:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
   b8:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
+  
+  /*
   ba:	fb 01       	movw	r30, r22			r31:r30 <- r23:r22 
   bc:	31 97       	sbiw	r30, 0x01	; 1		r31:r30 <- r31:r30 - 0b00000001
   be:	f1 f7       	brne	.-4      	;  0xbc	if(Z=0){jump to 0xbc}
+  */
+  for(i = time;i > 0 ;i--){};//delay(time);
+  
   c0:	01 97       	sbiw	r24, 0x01	; 1		r25:r24 <- r25:r24 - 0b00000001
   c2:	d9 f7       	brne	.-10     	;  0xba	if(Z=0){jump to 0xba}
   
@@ -166,10 +173,12 @@ int main(void){
   d0:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
   d2:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
   
+  /*
   d4:	fb 01       	movw	r30, r22			r31:r30 <- r23:r22
   d6:	31 97       	sbiw	r30, 0x01	; 1		r31:r30 <- r31:r30 - 0b00000001
   d8:	f1 f7       	brne	.-4      	;  0xd6	if(Z=0){jump to 0xd6}
-  
+  */
+  for(i = time;i > 0 ;i--){};//delay(time);
   
   da:	01 97       	sbiw	r24, 0x01	; 1		r25:r24 <- r25:r24 - 0b00000001
   dc:	d9 f7       	brne	.-10     	;  0xd4	if(Z=0){jump to 0xd4}
