@@ -20,7 +20,7 @@ int main(void){
   42:	8c 7f       	andi	r24, 0xFC	; 252	r24 <- r24 && 0b11111100 (logiczny and)
   44:	8b bb       	out	0x1b, r24	; 27		PORTA <- r24
   */
-  PORTA &= 0b11111100;
+  PORTA &= ~(0b00000011);
  
  
   46:	92 bb       	out	0x12, r25	; 18		PORTD <- r25
@@ -67,24 +67,25 @@ int main(void){
   
   5e:	88 0f       	add	r24, r24				r24 <- r24 + r24
   60:	99 1f       	adc	r25, r25				r25 <- r25 + r25 + C(???)
+  
 #DRUGI
-
   62:	0a 94       	dec	r0						r0 <- r0 - 0b00000001 // 0 - 1 (??)
   64:	e2 f7       	brpl	.-8      	;  0x5e	if(N=0){jump to 0x5e}
   66:	88 bb       	out	0x18, r24	; 24		PORTB <- r24
-  68:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
-  6a:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
+  
   
   /*
+  68:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
+  6a:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
   6c:	fb 01       	movw	r30, r22			r31:r30 <- r23:r22
   6e:	31 97       	sbiw	r30, 0x01	; 1		r31:r30 <- r31:r30 - 0b00000001
   70:	f1 f7       	brne	.-4      	;  0x6e	if(Z=0){jump to 0x6e}
-  */
-  for(i = time;i > 0 ;i--){};//delay(time);
-  
-  
   72:	01 97       	sbiw	r24, 0x01	; 1		r25:r24 <- r25:r24 - 0b00000001//0b0001001110001000 = 5000--
   74:	d9 f7       	brne	.-10     	;  0x6c	if(Z=0){jump to 0x6c}
+  */
+  delay_ms_(2000);
+  
+  
   76:	44 30       	cpi	r20, 0x04	; 4			compare r20 and 0b00000100
   78:	b8 f4       	brcc	.+46     	;  0xa8	if(C=0){jump to 0xa8}
   7a:	20 e0       	ldi	r18, 0x00	; 0			r18 <- 0b00000000
@@ -98,18 +99,22 @@ int main(void){
   8a:	e2 f7       	brpl	.-8      	;  0x84	if(N=0){jump to 0x84}
   8c:	80 95       	com	r24						r24 <- 0b11111111 - r24
   8e:	82 bb       	out	0x12, r24	; 18		PORTD <- r24
-  90:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
-  92:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
+  
+  
   
   /*
+  90:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
+  92:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
   94:	fb 01       	movw	r30, r22			r31:r30 <- r23:r22
   96:	31 97       	sbiw	r30, 0x01	; 1		r31:r30 <- r31:r30 - 0b00000001
   98:	f1 f7       	brne	.-4      	;  0x96	if(Z=0){jump to 0x96}
-  */
-  for(i = time;i > 0 ;i--){};//delay(time);
-  
   9a:	01 97       	sbiw	r24, 0x01	; 1		r25:r24 <- r25:r24 - 0b00000001
   9c:	d9 f7       	brne	.-10     	;  0x94	if(Z=0){jump to 0x94}
+  */
+  delay_ms_(2000);
+  
+  
+  
   9e:	2f 5f       	subi	r18, 0xFF	; 255	r18 <- r18 - 0b11111111
   a0:	3f 4f       	sbci	r19, 0xFF	; 255	r19 <- r19 - 0b11111111
   a2:	27 30       	cpi	r18, 0x07	; 7			compare r18 and 0b00000111
@@ -135,18 +140,19 @@ int main(void){
   */
   PORTA |= 0b11111101;
   
-  b6:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
-  b8:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
+  
   
   /*
+  b6:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
+  b8:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
   ba:	fb 01       	movw	r30, r22			r31:r30 <- r23:r22 
   bc:	31 97       	sbiw	r30, 0x01	; 1		r31:r30 <- r31:r30 - 0b00000001
   be:	f1 f7       	brne	.-4      	;  0xbc	if(Z=0){jump to 0xbc}
-  */
-  for(i = time;i > 0 ;i--){};//delay(time);
-  
   c0:	01 97       	sbiw	r24, 0x01	; 1		r25:r24 <- r25:r24 - 0b00000001
   c2:	d9 f7       	brne	.-10     	;  0xba	if(Z=0){jump to 0xba}
+  */
+  delay_ms_(2000);
+
   
   /*
   c4:	8b b3       	in	r24, 0x1b	; 27		r24 <- PORTA
@@ -162,19 +168,17 @@ int main(void){
   */
   PORTA |= 0b11111110;
   
-  d0:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
-  d2:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
   
   /*
-  d4:	fb 01       	movw	r30, r22			r31:r30 <- r23:r22
-  d6:	31 97       	sbiw	r30, 0x01	; 1		r31:r30 <- r31:r30 - 0b00000001
-  d8:	f1 f7       	brne	.-4      	;  0xd6	if(Z=0){jump to 0xd6}
-  */
-  for(i = time;i > 0 ;i--){};//delay(time);
-  
-  da:	01 97       	sbiw	r24, 0x01	; 1		r25:r24 <- r25:r24 - 0b00000001
-  dc:	d9 f7       	brne	.-10     	;  0xd4	if(Z=0){jump to 0xd4}
-  
+  d0:	88 e8       	ldi	r24, 0x88	; 136		r24 <- 0b10001000
+  d2:	93 e1       	ldi	r25, 0x13	; 19		r25 <- 0b00010011
+  d4:	fb 01       	movw	r30, r22			r31:r30 <- r23:r22	1tick
+  d6:	31 97       	sbiw	r30, 0x01	; 1		r31:r30 <- r31:r30 - 0b00000001	2tick
+  d8:	f1 f7       	brne	.-4      	;  0xd6	if(Z=0){jump to 0xd6}	2tick
+  da:	01 97       	sbiw	r24, 0x01	; 1		r25:r24 <- r25:r24 - 0b00000001	2tick
+  dc:	d9 f7       	brne	.-10     	;  0xd4	if(Z=0){jump to 0xd4}	2tick
+  *///16000000tick / 8MHz = 2sec
+  delay_ms_(2000);
   
   /*
   de:	8b b3       	in	r24, 0x1b	; 27		r24 <- PORTA
